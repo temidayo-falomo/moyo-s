@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clearance Document | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container">
+    <div class="page-head no-print">
+      <div>
+        <p class="eyebrow">Clearance document</p>
+        <h1>Examination clearance preview</h1>
+        <p>A formal, printable copy of the clearance. Validity is always confirmed from the server record.</p>
+      </div>
+    </div>
+
+    <div class="doc-actions no-print" id="doc-actions">
+      <a class="btn btn-outline" id="back-link" href="student-dashboard.html">&larr; Back</a>
+      <button type="button" class="btn btn-primary" id="print-button">Print document</button>
+    </div>
+
+    <div class="alert warning no-print" role="note" style="max-width:820px;margin:0 auto 18px" id="doc-warning">
+      <span class="alert-icon" aria-hidden="true">!</span>
+      <p><strong>This document is not proof on its own.</strong> A printout, PDF, screenshot or QR image can be
+      copied or edited and is not tamper-proof. Invigilators must scan the code and rely on the live university record.</p>
+    </div>
+
+    <!-- The document (or an explanatory message) is rendered here -->
+    <div id="doc-container"></div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/clearance-preview.js"></script>
+</body>
+</html>

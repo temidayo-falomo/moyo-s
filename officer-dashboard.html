@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faculty Officer Dashboard | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Faculty officer · Faculty of Computing</p>
+        <h1>Clearance requests</h1>
+        <p>Department of Computer Science · 2026/2027 academic session</p>
+      </div>
+    </div>
+
+    <section class="grid grid-4" id="officer-stats" aria-label="Request summary" ></section>
+
+    <div class="tabs" role="tablist" aria-label="Officer sections" id="officer-tabs">
+      <button type="button" class="tab" role="tab" id="tab-requests" data-tab="requests" aria-controls="requests">Requests</button>
+      <button type="button" class="tab" role="tab" id="tab-schedule" data-tab="schedule" aria-controls="schedule">Clearance windows</button>
+    </div>
+
+    <!-- ===================== REQUESTS ===================== -->
+    <section id="requests" role="tabpanel" aria-labelledby="tab-requests">
+      <div class="card">
+        <!-- Search and filters -->
+        <form class="toolbar" id="filters" role="search" aria-label="Filter clearance requests">
+          <div class="form-field toolbar-search">
+            <label for="search">Search</label>
+            <input class="input" type="search" id="search" placeholder="Matric number or student name" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label for="filter-level">Level</label>
+            <select class="input" id="filter-level">
+              <option value="all">All levels</option>
+              <option value="100">100 Level</option>
+              <option value="200">200 Level</option>
+              <option value="300">300 Level</option>
+              <option value="400">400 Level</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="filter-status">Request status</label>
+            <select class="input" id="filter-status">
+              <option value="all">All statuses</option>
+              <option value="pending">Pending review</option>
+              <option value="approved">Approved</option>
+              <option value="needs_review">Needs review</option>
+              <option value="rejected">Rejected</option>
+              <option value="revoked">Revoked</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="filter-fee">Payment status</label>
+            <select class="input" id="filter-fee">
+              <option value="all">All payments</option>
+              <option value="paid">Paid</option>
+              <option value="part">Part payment</option>
+              <option value="unpaid">Not paid</option>
+            </select>
+          </div>
+          <button type="reset" class="btn btn-outline" id="clear-filters">Clear</button>
+        </form>
+
+        <!-- Batch approval bar -->
+        <div class="batch-bar" id="batch-bar">
+          <div>
+            <strong id="selected-count">0 selected</strong>
+            <span class="small muted" id="eligible-note"></span>
+          </div>
+          <div class="row">
+            <button type="button" class="btn btn-outline btn-sm" id="select-all-eligible">Select all eligible</button>
+            <button type="button" class="btn btn-outline btn-sm" id="clear-selection">Clear selection</button>
+            <button type="button" class="btn btn-gold" id="batch-approve" disabled>Approve selected</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data">
+            <caption class="visually-hidden">Clearance requests</caption>
+            <thead>
+              <tr>
+                <th scope="col"><input type="checkbox" id="select-page" aria-label="Select all eligible requests on this page"></th>
+                <th scope="col">Student</th>
+                <th scope="col">Department / Faculty</th>
+                <th scope="col">Level</th>
+                <th scope="col">Payment</th>
+                <th scope="col">Status</th>
+                <th scope="col">Submitted</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="request-rows"></tbody>
+          </table>
+        </div>
+        <div class="pager" id="request-pager"></div>
+
+        <p class="hint" style="margin-top:14px">
+          Only <strong>pending</strong> requests with <strong>full payment</strong> can be selected for batch approval.
+          Each payment is re-checked against the university portal at the moment of approval.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== CLEARANCE WINDOWS ===================== -->
+    <section id="schedule" role="tabpanel" aria-labelledby="tab-schedule" hidden>
+      <div class="stack">
+        <div class="card">
+          <div class="card-head"><h2>Schedule a clearance window</h2></div>
+          <form id="window-form" class="measure" novalidate>
+            <div class="form-field">
+              <label for="window-title">Window title</label>
+              <input class="input" type="text" id="window-title" maxlength="80" placeholder="e.g. First Semester Examination Clearance" aria-describedby="window-title-error">
+              <p class="field-error" id="window-title-error" hidden></p>
+            </div>
+            <div class="form-field">
+              <label for="window-level">Applies to</label>
+              <select class="input" id="window-level">
+                <option value="all">All levels</option>
+                <option value="100">100 Level</option>
+                <option value="200">200 Level</option>
+                <option value="300">300 Level</option>
+                <option value="400">400 Level</option>
+              </select>
+            </div>
+            <div class="grid grid-2" style="gap:14px">
+              <div class="form-field">
+                <label for="window-opens">Opening date and time</label>
+                <input class="input" type="datetime-local" id="window-opens" aria-describedby="window-opens-error">
+                <p class="field-error" id="window-opens-error" hidden></p>
+              </div>
+              <div class="form-field">
+                <label for="window-closes">Closing date and time</label>
+                <input class="input" type="datetime-local" id="window-closes" aria-describedby="window-closes-error">
+                <p class="field-error" id="window-closes-error" hidden></p>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="window-deadline">Final clearance deadline</label>
+              <input class="input" type="datetime-local" id="window-deadline" aria-describedby="window-deadline-hint window-deadline-error">
+              <p class="hint" id="window-deadline-hint">Latest time a request from this window can still be approved. Must not be before the closing time.</p>
+              <p class="field-error" id="window-deadline-error" hidden></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Save clearance window</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Scheduled windows</h2></div>
+          <ul class="list-plain" id="window-list"></ul>
+          <p class="hint">Students can submit requests only while a window for their level is open. In production the server enforces these times.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Review a single request -->
+  <div class="modal" id="review-modal" role="dialog" aria-modal="true" aria-labelledby="review-title" hidden>
+    <div class="modal-card wide">
+      <div class="modal-head">
+        <h2 id="review-title">Review clearance request</h2>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" id="review-body"></div>
+      <div class="modal-foot" id="review-actions"></div>
+    </div>
+  </div>
+
+  <!-- Batch approval confirmation -->
+  <div class="modal" id="batch-modal" role="dialog" aria-modal="true" aria-labelledby="batch-title" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="batch-title">Approve selected requests</h2>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="batch-summary"></p>
+        <div class="table-wrap" style="max-height:220px;overflow-y:auto;margin-bottom:14px">
+          <table class="data"><tbody id="batch-list"></tbody></table>
+        </div>
+        <label class="check" for="batch-confirm">
+          <input type="checkbox" id="batch-confirm">
+          <span>I am authorized to approve examination clearance for the Faculty of Computing and I have reviewed these requests.</span>
+        </label>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn-gold" id="batch-confirm-button" disabled>Approve requests</button>
+      </div>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/officer-dashboard.js"></script>
+</body>
+</html>

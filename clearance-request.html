@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Request Clearance | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container container-narrow">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Examination clearance</p>
+        <h1>Clearance request</h1>
+        <p>Confirm your details, attach the required documents and submit for review.</p>
+      </div>
+      <a class="btn btn-outline" href="student-dashboard.html">&larr; Back to dashboard</a>
+    </div>
+
+    <div class="stack">
+      <!-- Current request state: success / pending / rejected / needs review -->
+      <div id="request-state" aria-live="polite"></div>
+
+      <div class="stack">
+        <section class="card" aria-labelledby="req-profile-title">
+          <div class="card-head">
+            <h2 id="req-profile-title">Student information</h2>
+            <span class="tag">Read-only</span>
+          </div>
+          <dl class="details" id="req-profile"></dl>
+        </section>
+
+        <section class="card" aria-labelledby="eligibility-title">
+          <div class="card-head">
+            <h2 id="eligibility-title">Payment eligibility</h2>
+          </div>
+          <div id="eligibility"></div>
+        </section>
+      </div>
+
+      <!-- Request form (hidden while a request is pending or approved) -->
+      <section class="card" id="request-form-card" aria-labelledby="form-title">
+        <div class="card-head"><h2 id="form-title">Required clearance documents</h2></div>
+
+        <form id="request-form" novalidate>
+
+          <div>
+            <div class="form-field">
+              <label for="doc-receipt">School-fee receipt</label>
+              <input class="input" type="file" id="doc-receipt" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="doc-receipt-hint doc-receipt-error">
+              <p class="hint" id="doc-receipt-hint">Receipt for the current session. PDF, JPG or PNG.</p>
+              <p class="field-error" id="doc-receipt-error" hidden></p>
+            </div>
+            <div class="form-field">
+              <label for="doc-photo">Passport photograph</label>
+              <input class="input" type="file" id="doc-photo" accept=".jpg,.jpeg,.png" aria-describedby="doc-photo-hint doc-photo-error">
+              <p class="hint" id="doc-photo-hint">Recent photograph, plain background. JPG or PNG.</p>
+              <p class="field-error" id="doc-photo-error" hidden></p>
+            </div>
+            <div class="form-field">
+              <label for="doc-idcard" id="doc-idcard-label">Student ID card</label>
+              <input class="input" type="file" id="doc-idcard" accept=".pdf,.jpg,.jpeg,.png" aria-describedby="doc-idcard-hint doc-idcard-error">
+              <p class="hint" id="doc-idcard-hint">ID card valid for your current level. PDF, JPG or PNG.</p>
+              <p class="field-error" id="doc-idcard-error" hidden></p>
+            </div>
+          </div>
+
+          <fieldset style="border:1px solid var(--border);border-radius:8px;padding:16px;margin:6px 0 18px">
+            <legend class="field-label" style="padding:0 6px;margin:0">Declaration</legend>
+            <label class="check" for="declaration">
+              <input type="checkbox" id="declaration" aria-describedby="declaration-error">
+              <span>I confirm that the information shown above is correct and that the documents I have attached are
+              genuine and belong to me. I understand that false information may lead to my clearance being rejected
+              or revoked.</span>
+            </label>
+            <p class="field-error" id="declaration-error" hidden></p>
+          </fieldset>
+
+          <div class="row">
+            <button type="submit" class="btn btn-primary btn-lg" id="submit-request">Submit clearance request</button>
+            <span class="small muted" id="submit-note"></span>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/clearance-request.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container">
+    <div class="auth-wrap">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">Sign in</p>
+          <h1>Access your clearance account</h1>
+        </div>
+      </div>
+
+      <div class="card">
+        <!-- Student / staff switch -->
+        <div class="tabs" role="tablist" aria-label="Account type" id="login-tabs">
+          <button type="button" class="tab" role="tab" id="tab-student" data-tab="panel-student" aria-controls="panel-student">Student</button>
+          <button type="button" class="tab" role="tab" id="tab-staff" data-tab="panel-staff" aria-controls="panel-staff">Authorized staff</button>
+        </div>
+
+        <!-- STUDENT LOGIN -->
+        <section id="panel-student" role="tabpanel" aria-labelledby="tab-student">
+          <form id="student-form" novalidate>
+            <div class="alert danger" id="student-form-error" role="alert" hidden></div>
+
+            <div class="form-field">
+              <label for="matric">Matriculation number</label>
+              <input class="input" type="text" id="matric" name="matric" autocomplete="username"
+                     placeholder="e.g. 220404323" inputmode="numeric" maxlength="9" aria-describedby="matric-hint matric-error" required>
+              <p class="hint" id="matric-hint">Your 9-digit matriculation number.</p>
+              <p class="field-error" id="matric-error" hidden></p>
+            </div>
+
+            <div class="form-field">
+              <label for="student-password">Password</label>
+              <div class="input-group">
+                <input class="input" type="password" id="student-password" name="password"
+                       autocomplete="current-password" aria-describedby="student-password-error" required>
+                <button type="button" class="btn btn-outline" data-toggle-password="student-password" aria-pressed="false">Show</button>
+              </div>
+              <p class="field-error" id="student-password-error" hidden></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in</button>
+            <p class="small" style="margin:14px 0 0;text-align:center">
+              <a href="#" data-forgot>Forgot password?</a>
+            </p>
+          </form>
+
+          <details class="demo-accounts">
+            <summary>Demo student accounts</summary>
+            <p class="small muted" style="margin:8px 0 0">
+              All four share the password
+              <code id="demo-student-password"></code>.
+            </p>
+            <table>
+              <thead><tr><th>Matric number</th><th>Scenario</th><th><span class="visually-hidden">Action</span></th></tr></thead>
+              <tbody id="demo-student-rows"></tbody>
+            </table>
+          </details>
+        </section>
+
+        <!-- STAFF LOGIN -->
+        <section id="panel-staff" role="tabpanel" aria-labelledby="tab-staff" hidden>
+          <form id="staff-form" novalidate>
+            <div class="alert danger" id="staff-form-error" role="alert" hidden></div>
+
+            <div class="form-field">
+              <label for="staff-id">Staff ID</label>
+              <input class="input" type="text" id="staff-id" name="staffId" autocomplete="username"
+                     placeholder="e.g. FO-2041" aria-describedby="staff-id-error" required>
+              <p class="field-error" id="staff-id-error" hidden></p>
+            </div>
+
+            <div class="form-field">
+              <label for="staff-password">Password</label>
+              <div class="input-group">
+                <input class="input" type="password" id="staff-password" name="password"
+                       autocomplete="current-password" aria-describedby="staff-password-error" required>
+                <button type="button" class="btn btn-outline" data-toggle-password="staff-password" aria-pressed="false">Show</button>
+              </div>
+              <p class="field-error" id="staff-password-error" hidden></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg">Sign in as staff</button>
+            <p class="small" style="margin:14px 0 0;text-align:center">
+              <a href="#" data-forgot>Forgot password?</a>
+            </p>
+          </form>
+
+          <details class="demo-accounts">
+            <summary>Demo staff accounts</summary>
+            <table>
+              <thead><tr><th>Role</th><th>Staff ID</th><th>Password</th><th><span class="visually-hidden">Action</span></th></tr></thead>
+              <tbody id="demo-staff-rows"></tbody>
+            </table>
+          </details>
+        </section>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Forgot password -->
+  <div class="modal" id="forgot-modal" role="dialog" aria-modal="true" aria-labelledby="forgot-title" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="forgot-title">Reset your password</h2>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>In the full system you will receive a reset link at your registered university email address after
+        confirming your identity.</p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-primary" data-close-modal>Back to sign in</button>
+      </div>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

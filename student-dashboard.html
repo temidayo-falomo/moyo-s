@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container container-narrow">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Student dashboard</p>
+        <h1 id="welcome-title">Welcome</h1>
+        <p id="welcome-sub"></p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <!-- Prominent clearance call-to-action (content depends on status) -->
+      <section class="cta-panel" id="cta-panel" aria-live="polite"></section>
+
+      <!-- Status tiles -->
+      <section class="grid grid-3" aria-label="Clearance summary" id="status-tiles"></section>
+
+      <div class="stack">
+        <!-- Profile -->
+        <section class="card" aria-labelledby="profile-title">
+          <div class="card-head">
+            <h2 id="profile-title">My profile</h2>
+            <span class="tag">Read-only</span>
+          </div>
+          <dl class="details" id="profile-details"></dl>
+          <p class="hint">Profile and payment details come from the university record. To correct an error, contact the faculty office.</p>
+        </section>
+
+        <div class="stack">
+          <!-- Progress -->
+          <section class="card" aria-labelledby="progress-title">
+            <div class="card-head"><h2 id="progress-title">Clearance progress</h2></div>
+            <ol class="stepper" id="progress-steps"></ol>
+          </section>
+
+          <!-- Issued documents -->
+          <section class="card" aria-labelledby="docs-title">
+            <div class="card-head"><h2 id="docs-title">Issued clearance documents</h2></div>
+            <div id="issued-docs"></div>
+          </section>
+        </div>
+      </div>
+
+      <div class="stack">
+        <!-- Recent activity on this student's record -->
+        <section class="card" aria-labelledby="activity-title">
+          <div class="card-head"><h2 id="activity-title">Recent activity on my record</h2></div>
+          <ul class="list-plain" id="activity-list"></ul>
+        </section>
+
+        <!-- Security information -->
+        <section class="card" aria-labelledby="safe-title">
+          <div class="card-head"><h2 id="safe-title">How your record is protected</h2></div>
+          <ul class="checklist small">
+            <li>You can only see <strong>your own</strong> record. There is no option to view another student.</li>
+            <li>Your school-fee status is <strong>read-only</strong>. It will be checked by the server against the official university portal.</li>
+            <li>Clearance is issued only after an <strong>authorized faculty officer</strong> approves your request.</li>
+            <li>At the hall, the invigilator checks your QR code against the <strong>live university record</strong>. A printout or screenshot alone is not proof.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/student-dashboard.js"></script>
+</body>
+</html>

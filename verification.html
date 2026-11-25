@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Invigilator Verification | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container container-narrow">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">Invigilator · Examination hall</p>
+        <h1>Verify examination clearance</h1>
+        <p>Scan the student's QR code or enter the reference. The result always comes from the server record.</p>
+      </div>
+    </div>
+
+    <div class="alert info" role="note" style="margin-bottom:22px">
+      <span class="alert-icon" aria-hidden="true">i</span>
+      <div>
+        <p><strong>The QR code is only a lookup key.</strong> Never admit a student because a printout, PDF or
+        screenshot "looks right". Trust only the status returned on this screen from the university's
+        authoritative record, and compare the details with the student's ID card.</p>
+      </div>
+    </div>
+
+    <div class="stack">
+      <!-- LEFT: scan + manual entry -->
+      <div class="stack">
+        <section class="card" aria-labelledby="scan-title">
+          <div class="card-head">
+            <h2 id="scan-title">Scan QR code</h2>
+          </div>
+
+          <div class="scanner" id="scanner">
+            <div class="scanner-frame" aria-hidden="true"><span></span></div>
+            <div class="scanner-line" aria-hidden="true"></div>
+            <p id="scanner-text" class="mb-0">Camera preview appears here.<br>Align the QR code inside the frame.</p>
+          </div>
+
+          <div class="form-field">
+            <label for="scenario">Scan scenario</label>
+            <select class="input" id="scenario" aria-describedby="scenario-hint">
+              <option value="valid">A valid clearance</option>
+              <option value="revoked">A revoked clearance</option>
+              <option value="invalid">An unknown / forged QR code</option>
+              <option value="mismatch">A QR code presented by a different student</option>
+            </select>
+            <p class="hint" id="scenario-hint">Choose which kind of code is presented to the scanner.</p>
+          </div>
+          <button type="button" class="btn btn-primary btn-block" id="scan-button">Scan QR code</button>
+        </section>
+
+        <section class="card" aria-labelledby="manual-title">
+          <div class="card-head"><h2 id="manual-title">Manual verification</h2></div>
+          <p class="small muted">Use this if the QR code cannot be scanned.</p>
+          <form id="manual-form" novalidate>
+            <div class="form-field">
+              <label for="manual-ref">Clearance reference</label>
+              <input class="input mono" type="text" id="manual-ref" autocomplete="off" autocapitalize="characters"
+                     placeholder="CLR-XXXX-XXXX-XXXX" aria-describedby="manual-ref-error">
+              <p class="field-error" id="manual-ref-error" hidden></p>
+            </div>
+            <div class="form-field">
+              <label for="manual-matric">Matric number on the student's ID card <span class="muted small">(recommended)</span></label>
+              <input class="input" type="text" id="manual-matric" autocomplete="off" placeholder="e.g. 220404323" inputmode="numeric" maxlength="9" aria-describedby="manual-matric-hint">
+              <p class="hint" id="manual-matric-hint">If provided, it is compared with the server record to detect a borrowed clearance.</p>
+            </div>
+            <button type="submit" class="btn btn-outline btn-block" id="manual-button">Verify reference</button>
+          </form>
+        </section>
+      </div>
+
+      <!-- RIGHT: result -->
+      <div class="stack">
+        <section aria-labelledby="result-title">
+          <h2 id="result-title" class="visually-hidden">Verification result</h2>
+          <div id="verify-result" aria-live="assertive">
+            <div class="verify-idle">
+              <strong style="display:block;color:var(--foreground);font-weight:600;margin-bottom:4px">No verification yet</strong>
+              Scan a QR code or enter a clearance reference to retrieve the student's record.
+            </div>
+          </div>
+        </section>
+
+        <section class="card" aria-labelledby="recent-title">
+          <div class="card-head">
+            <h2 id="recent-title">Verifications this session</h2>
+            <span class="small muted" id="recent-count"></span>
+          </div>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr><th scope="col">Time</th><th scope="col">Reference</th><th scope="col">Result</th></tr></thead>
+              <tbody id="recent-rows"></tbody>
+            </table>
+          </div>
+          <p class="hint">Every verification attempt is written to the audit log.</p>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/verification.js"></script>
+</body>
+</html>

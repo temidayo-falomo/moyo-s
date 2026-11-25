@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administration | AAUA Secure Examination Clearance</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header id="site-header"></header>
+
+  <main id="main" class="container">
+    <div class="page-head">
+      <div>
+        <p class="eyebrow">System administration</p>
+        <h1>Administration</h1>
+        <p>Student records, payment verification, audit activity and staff access.</p>
+      </div>
+    </div>
+
+    <section class="grid grid-4" id="admin-stats" aria-label="System summary" ></section>
+
+    <div class="tabs" role="tablist" aria-label="Administration sections" id="admin-tabs">
+      <button type="button" class="tab" role="tab" id="tab-students" data-tab="students" aria-controls="students">Student records</button>
+      <button type="button" class="tab" role="tab" id="tab-payments" data-tab="payments" aria-controls="payments">Payment verification</button>
+      <button type="button" class="tab" role="tab" id="tab-audit" data-tab="audit" aria-controls="audit">Audit log</button>
+      <button type="button" class="tab" role="tab" id="tab-roles" data-tab="roles" aria-controls="roles">Roles &amp; access</button>
+    </div>
+
+    <!-- ===================== STUDENT RECORDS ===================== -->
+    <section id="students" role="tabpanel" aria-labelledby="tab-students">
+      <div class="card">
+        <div class="card-head">
+          <h2>Student records</h2>
+        </div>
+        <form class="toolbar toolbar-3" id="student-filters" role="search">
+          <div class="form-field toolbar-search">
+            <label for="student-search">Search</label>
+            <input class="input" type="search" id="student-search" placeholder="Matric number or student name" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label for="student-level">Level</label>
+            <select class="input" id="student-level">
+              <option value="all">All levels</option>
+              <option value="100">100 Level</option>
+              <option value="200">200 Level</option>
+              <option value="300">300 Level</option>
+              <option value="400">400 Level</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="student-status">Clearance status</label>
+            <select class="input" id="student-status">
+              <option value="all">All statuses</option>
+              <option value="none">Not requested</option>
+              <option value="pending">Pending review</option>
+              <option value="approved">Approved</option>
+              <option value="needs_review">Needs review</option>
+              <option value="rejected">Rejected</option>
+              <option value="revoked">Revoked</option>
+            </select>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table class="data">
+            <caption class="visually-hidden">Student records</caption>
+            <thead><tr>
+              <th scope="col">Student name</th><th scope="col">Matric number</th><th scope="col">Level</th>
+              <th scope="col">Payment</th><th scope="col">Clearance</th><th scope="col"><span class="visually-hidden">Actions</span></th>
+            </tr></thead>
+            <tbody id="student-rows"></tbody>
+          </table>
+        </div>
+        <div class="pager" id="student-pager"></div>
+      </div>
+    </section>
+
+    <!-- ===================== PAYMENT VERIFICATION ===================== -->
+    <section id="payments" role="tabpanel" aria-labelledby="tab-payments" hidden>
+      <div class="grid grid-3" id="payment-stats"></div>
+      <div class="card">
+        <div class="card-head">
+          <h2>Payment verification status</h2>
+          <div class="row">
+            <label for="payment-filter" class="small muted">Show</label>
+            <select class="input" id="payment-filter" style="width:auto">
+              <option value="all">All payments</option>
+              <option value="paid">Paid</option>
+              <option value="part">Part payment</option>
+              <option value="unpaid">Not paid</option>
+            </select>
+            <button type="button" class="btn btn-outline" id="sync-all">Sync all with portal</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data">
+            <caption class="visually-hidden">School-fee payment status per student</caption>
+            <thead><tr>
+              <th scope="col">Student name</th><th scope="col">Matric number</th><th scope="col">Level</th>
+              <th scope="col">Payment status</th><th scope="col">Last checked</th><th scope="col"><span class="visually-hidden">Actions</span></th>
+            </tr></thead>
+            <tbody id="payment-rows"></tbody>
+          </table>
+        </div>
+        <div class="pager" id="payment-pager"></div>
+      </div>
+    </section>
+
+    <!-- ===================== AUDIT LOG ===================== -->
+    <section id="audit" role="tabpanel" aria-labelledby="tab-audit" hidden>
+      <div class="card">
+        <div class="card-head">
+          <h2>Audit activity</h2>
+          <button type="button" class="btn btn-outline btn-sm" id="export-audit">Export CSV</button>
+        </div>
+        <form class="toolbar toolbar-2" id="audit-filters" role="search">
+          <div class="form-field toolbar-search">
+            <label for="audit-search">Search</label>
+            <input class="input" type="search" id="audit-search" placeholder="Actor, action or matric number" autocomplete="off">
+          </div>
+          <div class="form-field">
+            <label for="audit-role">Actor role</label>
+            <select class="input" id="audit-role">
+              <option value="all">All roles</option>
+              <option value="student">Student</option>
+              <option value="officer">Faculty Officer</option>
+              <option value="invigilator">Invigilator</option>
+              <option value="admin">Administrator</option>
+              <option value="system">System</option>
+            </select>
+          </div>
+        </form>
+        <div class="table-wrap">
+          <table class="data">
+            <caption class="visually-hidden">Audit log, newest first</caption>
+            <thead><tr>
+              <th scope="col">Time</th><th scope="col">Actor</th><th scope="col">Role</th>
+              <th scope="col">Action</th><th scope="col">Target</th><th scope="col">Detail</th>
+            </tr></thead>
+            <tbody id="audit-rows"></tbody>
+          </table>
+        </div>
+        <div class="pager" id="audit-pager"></div>
+      </div>
+    </section>
+
+    <!-- ===================== ROLES & ACCESS ===================== -->
+    <section id="roles" role="tabpanel" aria-labelledby="tab-roles" hidden>
+      <div class="stack">
+        <div class="card">
+          <div class="card-head">
+            <h2>Staff accounts</h2>
+            <button type="button" class="btn btn-primary btn-sm" id="add-staff">Add staff account</button>
+          </div>
+          <div class="table-wrap">
+            <table class="data">
+              <caption class="visually-hidden">Staff accounts and their roles</caption>
+              <thead><tr>
+                <th scope="col">Name</th><th scope="col">Staff ID</th><th scope="col">Role</th>
+                <th scope="col">Access</th><th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr></thead>
+              <tbody id="staff-rows"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Permission matrix</h2></div>
+          <div class="table-wrap">
+            <table class="data matrix">
+              <caption class="visually-hidden">What each role is allowed to do</caption>
+              <thead><tr><th scope="col">Capability</th><th scope="col">Student</th><th scope="col">Faculty Officer</th><th scope="col">Invigilator</th><th scope="col">Administrator</th></tr></thead>
+              <tbody id="matrix-rows"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Student record -->
+  <div class="modal" id="record-modal" role="dialog" aria-modal="true" aria-labelledby="record-title" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="record-title">Student record</h2>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body" id="record-body"></div>
+      <div class="modal-foot"><button type="button" class="btn btn-primary" data-close-modal>Close</button></div>
+    </div>
+  </div>
+
+  <!-- Portal re-check -->
+  <div class="modal" id="payment-modal" role="dialog" aria-modal="true" aria-labelledby="payment-title" hidden>
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="payment-title">Re-check payment with portal</h2>
+        <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="payment-student"></p>
+        <div class="form-field mb-0">
+          <label for="payment-result">Portal response</label>
+          <select class="input" id="payment-result">
+            <option value="paid">Paid in full</option>
+            <option value="part">Part payment</option>
+            <option value="unpaid">Not paid</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+        <button type="button" class="btn btn-primary" id="payment-apply">Apply result</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add staff -->
+  <div class="modal" id="staff-modal" role="dialog" aria-modal="true" aria-labelledby="staff-title" hidden>
+    <div class="modal-card">
+      <form id="staff-form" novalidate>
+        <div class="modal-head">
+          <h2 id="staff-title">Add staff account</h2>
+          <button type="button" class="modal-close" data-close-modal aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-field">
+            <label for="new-staff-name">Full name</label>
+            <input class="input" type="text" id="new-staff-name" maxlength="60" aria-describedby="new-staff-name-error">
+            <p class="field-error" id="new-staff-name-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="new-staff-id">Staff ID</label>
+            <input class="input" type="text" id="new-staff-id" maxlength="12" placeholder="e.g. INV-3401" aria-describedby="new-staff-id-error">
+            <p class="field-error" id="new-staff-id-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="new-staff-role">Role</label>
+            <select class="input" id="new-staff-role">
+              <option value="invigilator">Invigilator</option>
+              <option value="officer">Faculty Officer</option>
+              <option value="admin">Administrator</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Add account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer id="site-footer"></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
